@@ -1,10 +1,18 @@
 import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
   const [text, setText] = useState<string>("");
-  console.log(text);
+
+  const saveNote = async () => {
+    try {
+      await AsyncStorage.setItem("note", text);
+    } catch (error) {
+      //saving error
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -12,11 +20,11 @@ export default function App() {
       <StatusBar style="auto" />
       <TextInput
         multiline={true}
-        value="text"
+        value={text}
         onChangeText={(text) => setText(text)}
         style={styles.textInput}
       ></TextInput>
-      <Button title="Save note" onPress={(e) => console.log(e)} />
+      <Button title="Save note" onPress={saveNote} />
     </View>
   );
 }
