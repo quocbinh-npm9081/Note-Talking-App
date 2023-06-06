@@ -13,10 +13,6 @@ const HomeScreen: React.FC = () => {
   return (
     <>
       <SavedNoteList />
-      <Button
-        title="New Note"
-        onPress={() => navigation.navigate("EditNote")}
-      />
     </>
   );
 };

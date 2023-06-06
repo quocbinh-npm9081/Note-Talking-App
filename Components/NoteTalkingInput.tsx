@@ -14,6 +14,7 @@ export const NoteTalkingInput: React.FC<TProps> = ({ saveNote }) => {
         value={text}
         onChangeText={(text) => setText(text)}
         style={styles.textInput}
+        autoFocus={true}
       />
       <Button title="Save note" onPress={() => saveNote(text)} />
     </>
