@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, ScrollView, FlatList, StyleSheet } from "react-native";
+import { Text, View, SafeAreaView, FlatList, StyleSheet } from "react-native";
 import { Note } from "../types";
 import { useFocusEffect } from "@react-navigation/native";
 import { getAllNotes } from "../Services/noteStoreService";
@@ -13,7 +13,7 @@ const SavedNoteList: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <SafeAreaView style={styles.container}>
         <FlatList
           data={notes}
           renderItem={({ item }) => (
@@ -25,7 +25,7 @@ const SavedNoteList: React.FC = () => {
           )}
           keyExtractor={(item) => item.id}
         />
-      </ScrollView>
+      </SafeAreaView>
     </View>
   );
 };

@@ -2,10 +2,13 @@ import type {
   NativeStackNavigationProp,
   //   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
+import type { RouteProp } from "@react-navigation/native";
 
 export type RootStackParamList = {
   Home: undefined;
-  EditNote: undefined;
+  EditNote: {
+    noteId: string | undefined;
+  };
 };
 // export type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -20,3 +23,5 @@ export const STORE_KEY = "TAKE_NOTES_STORE_v2";
 export type NoteStore = {
   notes: Array<Note>;
 };
+
+export type EditScreenRouteProps = RouteProp<RootStackParamList, "EditNote">;

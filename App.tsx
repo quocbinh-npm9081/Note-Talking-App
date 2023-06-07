@@ -15,10 +15,10 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={({ navigation }) => ({
+          options={{
             headerTitle: "All Notes",
             headerRight: () => <NewNoteButton />,
-          })}
+          }}
         />
         <Stack.Screen name="EditNote" component={EditNoteScreen} />
       </Stack.Navigator>
