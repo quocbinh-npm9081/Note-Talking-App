@@ -1,11 +1,19 @@
 import React from "react";
-import { Text, View, SafeAreaView, FlatList, StyleSheet } from "react-native";
-import { Note } from "../types";
-import { useFocusEffect } from "@react-navigation/native";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  FlatList,
+  StyleSheet,
+  Pressable,
+} from "react-native";
+import { Note, ScreenNavigastionProps } from "../types";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { getAllNotes } from "../Services/noteStoreService";
 
 const SavedNoteList: React.FC = () => {
   const [notes, setNotes] = React.useState<Note[]>([]);
+  const navigation = useNavigation<ScreenNavigastionProps>();
 
   useFocusEffect(() => {
     getAllNotes().then((result) => setNotes(result.notes));
@@ -17,11 +25,19 @@ const SavedNoteList: React.FC = () => {
         <FlatList
           data={notes}
           renderItem={({ item }) => (
-            <View style={styles.row}>
-              <Text style={styles.noteText}>
-                {item.text.length === 0 ? "(Blank Note)" : item.text}
-              </Text>
-            </View>
+            <Pressable
+              onPress={() =>
+                navigation.navigate("EditNote", {
+                  noteId: item.id,
+                })
+              }
+            >
+              <View style={styles.row}>
+                <Text style={styles.noteText}>
+                  {item.text.length === 0 ? "(Blank Note)" : item.text}
+                </Text>
+              </View>
+            </Pressable>
           )}
           keyExtractor={(item) => item.id}
         />
