@@ -6,7 +6,7 @@ import { EditScreenRouteProps } from "../types";
 const EditNoteScreen: React.FC = () => {
   const route = useRoute<EditScreenRouteProps>();
   const noteId = route.params.noteId;
-  return <NoteTalkingInput saveNote={saveNote} />;
+  return <NoteTalkingInput saveNote={saveNote} noteId={noteId} />;
 };
 
 export default EditNoteScreen;

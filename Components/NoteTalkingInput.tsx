@@ -1,11 +1,20 @@
 import React from "react";
 import { Button, TextInput, StyleSheet } from "react-native";
 import { useState } from "react";
+import { getNote } from "../Services/noteStoreService";
 type TProps = {
   saveNote: (text: string) => void;
+  noteId: string | undefined;
 };
-export const NoteTalkingInput: React.FC<TProps> = ({ saveNote }) => {
+export const NoteTalkingInput: React.FC<TProps> = ({ saveNote, noteId }) => {
   const [text, setText] = useState<string>("");
+  React.useEffect(() => {
+    if (noteId) {
+      getNote(noteId).then((result) => setText(result?.text ?? ""));
+    }
+
+    return () => {};
+  }, []);
 
   return (
     <>
