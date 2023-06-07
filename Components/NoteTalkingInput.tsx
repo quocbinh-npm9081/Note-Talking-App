@@ -2,17 +2,22 @@ import React from "react";
 import { Button, TextInput, StyleSheet } from "react-native";
 import { useState } from "react";
 import { getNote } from "../Services/noteStoreService";
+import { saveNote } from "../Services/noteStoreService";
 type TProps = {
-  saveNote: (text: string, noteId: string | undefined) => void;
   noteId: string | undefined;
 };
-export const NoteTalkingInput: React.FC<TProps> = ({ saveNote, noteId }) => {
+export const NoteTalkingInput: React.FC<TProps> = ({ noteId }) => {
   const [text, setText] = useState<string>("");
   React.useEffect(() => {
     if (noteId) {
       getNote(noteId).then((result) => setText(result?.text ?? ""));
+      console.log("forcus");
     }
   }, []);
+
+  const saveNoteHandler = () => {
+    saveNote(text, noteId);
+  };
 
   return (
     <>
@@ -23,10 +28,7 @@ export const NoteTalkingInput: React.FC<TProps> = ({ saveNote, noteId }) => {
         style={styles.textInput}
         autoFocus={true}
       />
-      <Button
-        title="Save note"
-        onPress={() => saveNote(text, noteId ?? undefined)}
-      />
+      <Button title="Save note" onPress={saveNoteHandler} />
     </>
   );
 };
