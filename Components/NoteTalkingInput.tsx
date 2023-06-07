@@ -3,7 +3,7 @@ import { Button, TextInput, StyleSheet } from "react-native";
 import { useState } from "react";
 import { getNote } from "../Services/noteStoreService";
 type TProps = {
-  saveNote: (text: string) => void;
+  saveNote: (text: string, noteId: string | undefined) => void;
   noteId: string | undefined;
 };
 export const NoteTalkingInput: React.FC<TProps> = ({ saveNote, noteId }) => {
@@ -12,8 +12,6 @@ export const NoteTalkingInput: React.FC<TProps> = ({ saveNote, noteId }) => {
     if (noteId) {
       getNote(noteId).then((result) => setText(result?.text ?? ""));
     }
-
-    return () => {};
   }, []);
 
   return (
@@ -25,7 +23,10 @@ export const NoteTalkingInput: React.FC<TProps> = ({ saveNote, noteId }) => {
         style={styles.textInput}
         autoFocus={true}
       />
-      <Button title="Save note" onPress={() => saveNote(text)} />
+      <Button
+        title="Save note"
+        onPress={() => saveNote(text, noteId ?? undefined)}
+      />
     </>
   );
 };
