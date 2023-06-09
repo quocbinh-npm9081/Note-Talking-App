@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Button, StyleSheet } from "react-native";
+import React from "react";
+import { StyleSheet } from "react-native";
 import HomeScreen from "./Screens/HomeScreen";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import EditNoteScreen from "./Screens/EditNoteScreen";
-import { RootStackParamList } from "./types";
+import { RootStackParamList, ScreenNavigastionProps } from "./types";
 import NewNoteButton from "./Components/NewNoteButton";
 export default function App() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
