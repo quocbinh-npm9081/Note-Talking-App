@@ -16,7 +16,9 @@ const SavedNoteList: React.FC = () => {
   const navigation = useNavigation<ScreenNavigastionProps>();
 
   useFocusEffect(() => {
-    getAllNotes().then((result) => setNotes(result.notes));
+    getAllNotes()
+      .then((result) => setNotes(result.notes))
+      .catch((err) => console.log(err));
   });
 
   return (

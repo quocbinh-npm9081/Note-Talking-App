@@ -19,7 +19,7 @@ export type Note = {
   text: string;
   id: string;
 };
-export const STORE_KEY = "TAKE_NOTES_STORE_v2";
+export const STORE_KEY = "TAKE_NOTES_STORE_v1";
 export type NoteStore = {
   notes: Array<Note>;
 };

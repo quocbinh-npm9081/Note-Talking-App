@@ -1,8 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NoteStore, STORE_KEY } from "../types";
+import { Note, NoteStore, STORE_KEY } from "../types";
 
 export const getAllNotes = async () => {
   const storeItem = await AsyncStorage.getItem(STORE_KEY);
+
   if (storeItem) return JSON.parse(storeItem) as NoteStore;
   return { notes: [] };
 };
@@ -39,4 +40,10 @@ export const saveNote = async (value: string, noteId: string | undefined) => {
   } catch (error) {
     //saving error
   }
+};
+export const deleteNote = async (id: string) => {
+  const noteStore = await getAllNotes();
+  const noteIndex = noteStore.notes.findIndex((note: Note) => note.id === id);
+  noteStore.notes.splice(noteIndex, 1);
+  await AsyncStorage.setItem(STORE_KEY, JSON.stringify(noteStore));
 };

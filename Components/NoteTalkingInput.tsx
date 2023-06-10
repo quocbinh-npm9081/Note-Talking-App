@@ -11,7 +11,6 @@ export const NoteTalkingInput: React.FC<TProps> = ({ noteId }) => {
   React.useEffect(() => {
     if (noteId) {
       getNote(noteId).then((result) => setText(result?.text ?? ""));
-      console.log("forcus");
     }
   }, []);
 
