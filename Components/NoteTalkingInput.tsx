@@ -3,11 +3,14 @@ import { Button, TextInput, StyleSheet } from "react-native";
 import { useState } from "react";
 import { getNote } from "../Services/noteStoreService";
 import { saveNote } from "../Services/noteStoreService";
+import { useNavigation } from "@react-navigation/native";
+import { ScreenNavigastionProps } from "../types";
 type TProps = {
   noteId: string | undefined;
 };
 export const NoteTalkingInput: React.FC<TProps> = ({ noteId }) => {
   const [text, setText] = useState<string>("");
+  const navigation = useNavigation<ScreenNavigastionProps>();
   React.useEffect(() => {
     if (noteId) {
       getNote(noteId).then((result) => setText(result?.text ?? ""));
@@ -16,6 +19,7 @@ export const NoteTalkingInput: React.FC<TProps> = ({ noteId }) => {
 
   const saveNoteHandler = () => {
     saveNote(text, noteId);
+    navigation.navigate("Home");
   };
 
   return (
