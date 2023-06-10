@@ -11,15 +11,25 @@ type TProps = {
 export const NoteTalkingInput: React.FC<TProps> = ({ noteId }) => {
   const [text, setText] = useState<string>("");
   const navigation = useNavigation<ScreenNavigastionProps>();
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <Button title="back" onPress={saveNoteHandler} />,
+    });
+  }, [navigation, text, noteId]);
+
   React.useEffect(() => {
     if (noteId) {
       getNote(noteId).then((result) => setText(result?.text ?? ""));
     }
   }, []);
 
-  const saveNoteHandler = () => {
-    saveNote(text, noteId);
-    navigation.navigate("Home");
+  const saveNoteHandler = async () => {
+    console.log("saveNoteHandler: RUN", text);
+
+    await saveNote(text, noteId);
+    // navigation.navigate("Home");
+    if (navigation.canGoBack()) navigation.goBack();
   };
 
   return (
@@ -41,7 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffb70324",
     fontSize: 16,
     width: "100%",
-    height: 200,
+    flex: 1,
     paddingHorizontal: 20,
     textAlignVertical: "top", // con tro o dong dau tien
   },
